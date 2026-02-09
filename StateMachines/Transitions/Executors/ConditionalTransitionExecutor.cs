@@ -23,7 +23,7 @@ namespace Core.StateMachines.Transitions.Executors
             m_activeStateId = default;
         }
 
-        public void Add(Transition<TId> transition, Func<bool> condition)
+        public ConditionalTransitionExecutor<TId> Add(Transition<TId> transition, Func<bool> condition)
         {
             if (m_transitions.TryGetValue(transition.From, out List<ConditionalTransition> transitions))
             {
@@ -36,9 +36,10 @@ namespace Core.StateMachines.Transitions.Executors
                 m_transitions.Add(transition.From, new List<ConditionalTransition>() { new ConditionalTransition(transition, condition) });
 
             m_isActiveTransitionsDirty = true;
+            return this;
         }
 
-        public void Remove(Transition<TId> transition)
+        public ConditionalTransitionExecutor<TId> Remove(Transition<TId> transition)
         {
             if (!m_transitions.TryGetValue(transition.From, out List<ConditionalTransition> transitions))
                 return;
@@ -56,6 +57,7 @@ namespace Core.StateMachines.Transitions.Executors
                 m_transitions.Remove(transition.From);
 
             m_isActiveTransitionsDirty = true;
+            return this;
         }
 
         public IReadOnlyList<Transition<TId>> GetTransitions()
@@ -121,3 +123,4 @@ namespace Core.StateMachines.Transitions.Executors
         }
     }
 }
+
