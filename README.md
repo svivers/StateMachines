@@ -2,7 +2,7 @@
 Fast, extendible and flexible state machines for you to add in any c# project be it .NET or Unity.
 
 ## A quick overview
-The state machines designed to be ummutable so after creating them you can't add or remove state. And the machines use an id to address the states, so the same state can be added to the machine more than once. It's a double edged sword, it can be a feature used for optimization and lower the number of classes you write, but also can cause bugs if used without caution!
+The state machines designed to be ummutable so after creating them you can't add or remove states. And the machines use an id to address the states, so the same state can be added to the machine more than once. It's a double edged sword, it can be a feature used for optimization and lower the number of classes you write, but also can cause bugs if used without caution!
 
 Any state inheriting from ```BaseState``` class can be used in a FSM or HSM without making any changes to the state itself.
 The HSM uses a wrapper object ```StateNode<TState>``` around ```BaseState``` to allow tree structure of states.
