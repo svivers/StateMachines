@@ -106,7 +106,7 @@ public class MyHSM<TId, TState> : HierarchicalStateMachine<TId, TState>
 {
   public void TickStates(float deltaTime)
   {
-     TickStatesFromRoot(base.LowestActiveNode);
+     TickStatesFromRoot(base.LowestActiveNode, deltaTime);
   }
 
   // ticking states using recursion
