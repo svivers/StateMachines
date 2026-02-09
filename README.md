@@ -98,8 +98,8 @@ public abstract class MyBaseState : BaseState
 }
 ```
 
-And we will need to extend a state machine for it to support updating a state each frame
-We will tick states from root to lowest active state
+And we will need to extend a state machine for it to support updating a state each frame.
+We will tick states from root to lowest active state.
 ```csharp
 public class MyHSM<TId, TState> : HierarchicalStateMachine<TId, TState>
   where TState : MyBaseState
