@@ -55,11 +55,11 @@ IStateMachine<string, BaseState> m_doorHsm = HierarchicalStateMachine<string, Ba
 m_doorHsm.ChangeState("locked_closed");
 ```
 
-#Using transitions
-(Note that ```TriggerTransitionExecutor``` can have multiple transitions assigned to one trigger)
-```csharp
-// creating transitions (requires a IStateSwitcher<TId> which is provided by IStateMachine<TId, TState> interface)
+# Using transitions
+Since transitions are controlling objects for state machines they require ```IStateSwitcher<TId>``` upon creation to controll the machines
 
+Note that ```TriggerTransitionExecutor<TTrigger, TId>``` can have multiple transitions assigned to one trigger.
+```csharp
 TriggerTransitionExecutor<string, string> m_hsmTransitions = new TriggerTransitionExecutor<string, string>(m_doorHsm)
   .Add(new Transition<string>("locked", "unlocked"), "unlock_the_door");
   .Add(new Transition<string>("locked_closed", "unlocked_closed"), "unlock_the_door");
@@ -75,7 +75,21 @@ m_hsmTransitions.Execute("close");
 m_hsmTransitions.Execute("lock_the_door");
 ```
 
-#Extending state machines
+```ConditionalTransitionExecutor<TId>``` is a collection of transitions and boolean functions though i use lambdas here i recomend using properties
+```csharp
+ConditionalTransitionExecutor<string> m_fsmTransitions = new ConditionalTransitionExecutor<string>(m_doorFsm)
+    .Add(new Transition<string>("open", "closed"), () => Input.GetKeyUp(KeyCode.C))
+    .Add(new Transition<string>("closed", "open"), () => Input.GetKeyUp(KeyCode.O));
+```
+Now update logic for your transitions
+```csharp
+void Update()
+{
+    m_fsmTransitions.Tick();
+}
+```
+
+# Extending state machines
 Now let's imagine we want to update our state each frame. We will need a ```Tick(float deltaTime)``` method in each state, so let's extend ```BaseState``` class
 ```csharp
 public abstract class MyBaseState : BaseState
