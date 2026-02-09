@@ -19,7 +19,7 @@ namespace Core.StateMachines.Transitions.Executors
 
         public IReadOnlyCollection<TTrigger> Triggers => m_transitions.Keys;
 
-        public void Add(Transition<TId> transition, TTrigger trigger)
+        public TriggerTransitionExecutor<TTrigger, TId> Add(Transition<TId> transition, TTrigger trigger)
         {
             if (m_transitions.TryGetValue(trigger, out List<Transition<TId>> transitions))
             {
@@ -31,9 +31,11 @@ namespace Core.StateMachines.Transitions.Executors
             }
             else
                 m_transitions.Add(trigger, new List<Transition<TId>>() { transition });
+
+            return this;
         }
 
-        public void Remove(Transition<TId> transition, TTrigger trigger)
+        public TriggerTransitionExecutor<TTrigger, TId> Remove(Transition<TId> transition, TTrigger trigger)
         {
             if (!m_transitions.TryGetValue(trigger, out List<Transition<TId>> transitions))
                 return;
@@ -42,6 +44,8 @@ namespace Core.StateMachines.Transitions.Executors
 
             if (transitions.Count == 0)
                 m_transitions.Remove(trigger);
+
+            return this;
         }
 
         public void Remove(TTrigger trigger)
@@ -88,3 +92,4 @@ namespace Core.StateMachines.Transitions.Executors
         }
     }
 }
+
