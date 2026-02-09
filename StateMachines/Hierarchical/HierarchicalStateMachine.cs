@@ -118,7 +118,7 @@ namespace Core.StateMachines.Hierarchical
             if (to == null || to == from)
                 return;
 
-            EnterDown(to.Parent, from);
+            EnterDown(from, to.Parent);
             to.State.Enter();
         }
 
@@ -167,3 +167,4 @@ namespace Core.StateMachines.Hierarchical
         }
     }
 }
+
