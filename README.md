@@ -75,7 +75,7 @@ m_hsmTransitions.Execute("close");
 m_hsmTransitions.Execute("lock_the_door");
 ```
 
-```ConditionalTransitionExecutor<TId>``` is a collection of transitions and boolean functions though i use lambdas here i recomend using properties
+```ConditionalTransitionExecutor<TId>``` is a collection of transitions and boolean functions (though i use lambdas here i recomend using properties)
 ```csharp
 ConditionalTransitionExecutor<string> m_fsmTransitions = new ConditionalTransitionExecutor<string>(m_doorFsm)
     .Add(new Transition<string>("open", "closed"), () => Input.GetKeyUp(KeyCode.C))
