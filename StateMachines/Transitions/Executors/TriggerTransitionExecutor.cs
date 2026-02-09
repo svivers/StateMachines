@@ -48,7 +48,7 @@ namespace Core.StateMachines.Transitions.Executors
             return this;
         }
 
-        public void Remove(TTrigger trigger)
+        public TriggerTransitionExecutor<TTrigger, TId> Remove(TTrigger trigger)
         {
             m_transitions.Remove(trigger);
         }
@@ -92,4 +92,5 @@ namespace Core.StateMachines.Transitions.Executors
         }
     }
 }
+
 
